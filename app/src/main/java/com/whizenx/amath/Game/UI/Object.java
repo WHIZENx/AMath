@@ -37,9 +37,10 @@ public class Object {
     public static void createBtn(Activity activity, HashMap<String, Integer> idMap, String name, Button btn, int width, int height, String text, float x, float y) {
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(width, height);
 
-        String idName = name;
         int generated_R_id = getRandomId(activity, idMap, name);
-        idMap.put(idName, generated_R_id);
+        idMap.put(name, generated_R_id);
+
+        btn.setId(idMap.get(name));
 
         btn.setText(text);
         btn.setX(x);

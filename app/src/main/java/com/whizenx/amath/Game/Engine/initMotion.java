@@ -1,12 +1,13 @@
 package com.whizenx.amath.Game.Engine;
 
-import static com.whizenx.amath.Game.Engine.initObj.btn;
+import static com.whizenx.amath.Game.Engine.Validate.start;
 import static com.whizenx.amath.Game.Engine.initObj.paddingPiecePx;
 import static com.whizenx.amath.Game.Engine.initObj.paddingSelectPiecePx;
 import static com.whizenx.amath.Game.Engine.initObj.paddingSelectPx;
 import static com.whizenx.amath.Game.Engine.initObj.paddingStrokePx;
 import static com.whizenx.amath.Game.Engine.initObj.piece;
 import static com.whizenx.amath.Game.Engine.initObj.piece_select;
+import static com.whizenx.amath.Game.Popup.onButtonShowPopupWindowClick;
 import static com.whizenx.amath.Game.Setting.getSelectNum;
 import static com.whizenx.amath.Game.UI.Chip.getIVTag;
 import static com.whizenx.amath.Game.UI.Chip.saveIVTag;
@@ -43,7 +44,7 @@ public class initMotion {
         tableOnTouch(activity, view, idMap);
         selectOnTouch(activity, view_select, idMap);
 
-        submitOnTouch(activity, btn, idMap);
+        submitOnTouch(activity, activity.findViewById(idMap.get("submit")), idMap);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -143,6 +144,7 @@ public class initMotion {
     }
 
     private static void submitOnTouch(Activity activity, Button btn, HashMap<String, Integer> idMap) {
-        btn.setOnClickListener(view -> System.out.println("SUBMIT!!!"));
+//        btn.setOnClickListener(view -> onButtonShowPopupWindowClick(activity, btn));
+        btn.setOnClickListener(view -> start(activity, idMap));
     }
 }

@@ -15,15 +15,11 @@ public class Table {
 
     static HashMap<Integer, HashMap<String, List<Integer>>> table = new HashMap<>();
 
-    public static HashMap<Integer, HashMap<String, List<Integer>>> getTable() {
-        return table;
-    }
-
     public Table() {
         table = setTable();
     }
 
-    static HashMap<Integer, HashMap<String, List<Integer>>> setTable() {
+    public static HashMap<Integer, HashMap<String, List<Integer>>> setTable() {
         HashMap<Integer, HashMap<String, List<Integer>>> initTable = new HashMap<>();
 
         // r, y, o, b, s

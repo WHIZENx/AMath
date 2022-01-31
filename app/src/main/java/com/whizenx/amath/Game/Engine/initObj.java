@@ -37,7 +37,6 @@ import java.util.List;
 public class initObj {
 
     static int paddingPx, paddingPiecePx, paddingStrokePx, paddingSelectPx, paddingSelectPiecePx, piece, piece_select;
-    static Button btn;
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     public static void initAllObj(Activity activity, HashMap<String, Integer> idMap, HashMap<Integer, List<String>> table_map) {
@@ -45,8 +44,7 @@ public class initObj {
         ConstraintLayout table = activity.findViewById(R.id.table);
         ConstraintLayout select = activity.findViewById(R.id.select);
         ConstraintLayout selectAfter = activity.findViewById(R.id.selectAfter);
-        ConstraintLayout buttonCal = activity.findViewById(R.id.buttonCal);
-        Table tableGame = new Table();
+        new Table();
 
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -85,8 +83,7 @@ public class initObj {
 
         int x_btn = (metrics.widthPixels - 250) / 2;
         int y_btn = y_selectAfter + 70;
-        btn = new Button(activity);
-        createBtn(activity,idMap, "submit", btn, 250, 125, "SUBMIT", x_btn, y_btn);
+        createBtn(activity, idMap, "submit", new Button(activity), 250, 125, "SUBMIT", x_btn, y_btn);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -108,7 +105,7 @@ public class initObj {
                 hashMap.put("value", value);
                 hashMap.put("type", getStatus(i, j));
                 hashMap.put("index", null);
-                hashMap.put("locked", value != null);
+                hashMap.put("locked", false); // value != null
                 hashMap.put("calculate", false);
                 iv.setTag(hashMap);
 

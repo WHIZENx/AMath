@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:id="@+id/toolbar_popup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_500">
+
+            <TextView
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="20sp"
+                android:text="Result"
+                android:layout_marginStart="20dp" />
+
+<!--            <TextView-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="end"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_margin="30dp"-->
+<!--                android:textSize="20sp"-->
+<!--                android:text="X"/>-->
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_below="@id/toolbar_popup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/popup_description"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+            </RelativeLayout>
+
+            <LinearLayout
+                android:paddingBottom="10dp"
+                android:layout_below="@id/popup_description"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/popup_log"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show Log"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp">
+                </Button>
+
+                <Button
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/popup_close"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Close"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp">
+                </Button>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

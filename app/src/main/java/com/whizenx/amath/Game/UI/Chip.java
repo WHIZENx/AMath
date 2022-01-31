@@ -28,7 +28,7 @@ public class Chip {
     }
 
     public static String getValueIV(Activity activity,  HashMap<String, Integer> idMap, int x, int y) {
-        if (x < 0 || x > getNum() || y < 0 || y > getNum()) {
+        if (x < 0 || x >= getNum() || y < 0 || y >= getNum()) {
             return null;
         }
 
@@ -36,7 +36,7 @@ public class Chip {
     }
 
     public static Integer getPointIV(Activity activity,  HashMap<String, Integer> idMap, int x, int y) {
-        if (x < 0 || x > getNum() || y < 0 || y > getNum()) {
+        if (x < 0 || x >= getNum() || y < 0 || y >= getNum()) {
             return null;
         }
 
