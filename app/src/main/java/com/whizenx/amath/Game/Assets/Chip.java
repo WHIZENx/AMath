@@ -1,4 +1,4 @@
-package com.whizenx.amath.Game.UI;
+package com.whizenx.amath.Game.Assets;
 
 import static com.whizenx.amath.Game.Setting.getNum;
 

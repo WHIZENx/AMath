@@ -3,19 +3,19 @@ package com.whizenx.amath.Game.Engine;
 import static com.whizenx.amath.Game.RandomId.getRandomId;
 import static com.whizenx.amath.Game.Setting.getNum;
 import static com.whizenx.amath.Game.Setting.getSelectNum;
-import static com.whizenx.amath.Game.UI.Interface.setChip;
-import static com.whizenx.amath.Game.UI.Interface.setStatus;
-import static com.whizenx.amath.Game.UI.Obj.createBgObj;
-import static com.whizenx.amath.Game.UI.Obj.createBgTableObj;
-import static com.whizenx.amath.Game.UI.Obj.createBtn;
-import static com.whizenx.amath.Game.UI.Obj.createChip;
-import static com.whizenx.amath.Game.UI.Obj.createObj;
-import static com.whizenx.amath.Game.UI.Option.getPaddingDp;
-import static com.whizenx.amath.Game.UI.Option.getPaddingPieceDp;
-import static com.whizenx.amath.Game.UI.Option.getPaddingSelectDp;
-import static com.whizenx.amath.Game.UI.Option.getPaddingSelectPieceDp;
-import static com.whizenx.amath.Game.UI.Option.getPaddingStrokeDp;
-import static com.whizenx.amath.Game.UI.Table.getStatus;
+import static com.whizenx.amath.Game.Assets.Interface.setChip;
+import static com.whizenx.amath.Game.Assets.Interface.setStatus;
+import static com.whizenx.amath.Game.Assets.Obj.createBgObj;
+import static com.whizenx.amath.Game.Assets.Obj.createBgTableObj;
+import static com.whizenx.amath.Game.Assets.Obj.createBtn;
+import static com.whizenx.amath.Game.Assets.Obj.createChip;
+import static com.whizenx.amath.Game.Assets.Obj.createObj;
+import static com.whizenx.amath.Game.Assets.Option.getPaddingDp;
+import static com.whizenx.amath.Game.Assets.Option.getPaddingPieceDp;
+import static com.whizenx.amath.Game.Assets.Option.getPaddingSelectDp;
+import static com.whizenx.amath.Game.Assets.Option.getPaddingSelectPieceDp;
+import static com.whizenx.amath.Game.Assets.Option.getPaddingStrokeDp;
+import static com.whizenx.amath.Game.Assets.Table.getStatus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.whizenx.amath.Game.UI.Table;
+import com.whizenx.amath.Game.Assets.Table;
 import com.whizenx.amath.R;
 
 import java.util.HashMap;
@@ -48,11 +48,10 @@ public class Resources {
         this.idMap = idMap;
         this.table_map = table_map;
         this.select_chip = select_chip;
-        initAllObj();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void initAllObj() {
+    void init() {
 
         ConstraintLayout table = activity.findViewById(R.id.table);
         ConstraintLayout select = activity.findViewById(R.id.select);

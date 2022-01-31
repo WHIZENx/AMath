@@ -3,7 +3,7 @@ package com.whizenx.amath.Game.Engine;
 import static com.whizenx.amath.Game.PrintAMath.printLog;
 import static com.whizenx.amath.Game.PrintAMath.printResult;
 import static com.whizenx.amath.Game.Setting.getNum;
-import static com.whizenx.amath.Game.UI.Chip.getValueIV;
+import static com.whizenx.amath.Game.Assets.Chip.getValueIV;
 import static com.whizenx.amath.Game.isNumeric.isNumeric;
 
 import android.app.Activity;
@@ -33,10 +33,9 @@ public class Validate {
     Validate(Activity activity, HashMap<String, Integer> idMap) {
         this.activity = activity;
         this.idMap = idMap;
-        start();
     }
 
-    private void start() {
+    void start() {
         HashMap<String, ?> dict = find_and_count();
         List<Integer> x_list = (List<Integer>) dict.get("x");
         List<Integer> y_list = (List<Integer>) dict.get("y");
@@ -247,13 +246,17 @@ public class Validate {
     }
 
     private Boolean check_eq(List<String> list_1, List<String> list_2, String operation){
-        if (list_1.size() == 0 && list_2.size() == 0){
+        if (list_1.size() == 0 && list_2.size() == 0) {
             return true;
         }
 
         List<String> list_result = new ArrayList<>(list_1);
         list_result.add(operation);
         list_result.addAll(list_2);
+        if (list_result.get(0).equals("=") || list_result.get(list_result.size()-1).equals("=")) {
+            return null;
+        }
+
         String result = TextUtils.join("",list_result);
         if (!result.contains("=")){
             return null;

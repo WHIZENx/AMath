@@ -21,10 +21,9 @@ public class Game {
     public Game(Activity activity, int map) {
         this.activity = activity;
         this.map = map;
-        start();
     }
 
-    private void start() {
+    public void start() {
 
         HashMap<String, Integer> idMap = new HashMap<>();
         HashMap<Integer, List<String>> table_map = new HashMap<>();
@@ -39,7 +38,10 @@ public class Game {
             new Map1(table_map, select_chip);
         }
 
-        new Resources(activity, idMap, table_map, select_chip);
-        new Motion(activity, idMap);
+        Resources resources = new Resources(activity, idMap, table_map, select_chip);
+        Motion motion = new Motion(activity, idMap);
+
+        resources.init();
+        motion.init();
     }
 }

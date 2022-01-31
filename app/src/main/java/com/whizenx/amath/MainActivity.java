@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Game(MainActivity.this, 10);
+        Game game = new Game(MainActivity.this, 1);
+        game.start();
     }
 }

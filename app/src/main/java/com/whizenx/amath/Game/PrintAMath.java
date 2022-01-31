@@ -16,13 +16,16 @@ public class PrintAMath {
         list_result.addAll(list_1);
         list_result.add(operation);
         list_result.addAll(list_2);
+
         String result = TextUtils.join("",list_result);
         System.out.println(text + ": " + list_1 + "[" + operation + "]" + list_2 + " -> " +result);
 
         List<String> result_split = Arrays.asList(result.split("="));
 
-        if (list_1.size() == 0 && list_2.size() == 0){
-            System.out.println("Equation: "+ result_split + " -> Skip");
+        if (list_1.size() == 0 && list_2.size() == 0) {
+            System.out.println("Equation: " + result_split + " -> Skip");
+        } else if (list_result.get(0).equals("=") || list_result.get(list_result.size()-1).equals("=")) {
+            System.out.println("Equation: " + result + " -> error");
         } else if (!result.contains("=")) {
             System.out.println("Equation: "+ result_split + " -> " + bool);
         } else {

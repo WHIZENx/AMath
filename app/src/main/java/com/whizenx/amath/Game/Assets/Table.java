@@ -1,4 +1,4 @@
-package com.whizenx.amath.Game.UI;
+package com.whizenx.amath.Game.Assets;
 
 import java.util.Arrays;
 import java.util.Collections;

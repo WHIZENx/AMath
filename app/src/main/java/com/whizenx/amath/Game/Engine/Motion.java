@@ -7,14 +7,14 @@ import static com.whizenx.amath.Game.Engine.Resources.paddingStrokePx;
 import static com.whizenx.amath.Game.Engine.Resources.piece;
 import static com.whizenx.amath.Game.Engine.Resources.piece_select;
 import static com.whizenx.amath.Game.Setting.getSelectNum;
-import static com.whizenx.amath.Game.UI.Chip.getIV;
-import static com.whizenx.amath.Game.UI.Chip.getIVTag;
-import static com.whizenx.amath.Game.UI.Chip.saveIVTag;
-import static com.whizenx.amath.Game.UI.Interface.setChip;
-import static com.whizenx.amath.Game.UI.Interface.setChip_onTouch;
-import static com.whizenx.amath.Game.UI.Interface.setStatus;
-import static com.whizenx.amath.Game.UI.Interface.setStatus_onTouch;
-import static com.whizenx.amath.Game.UI.Table.getStatus;
+import static com.whizenx.amath.Game.Assets.Chip.getIV;
+import static com.whizenx.amath.Game.Assets.Chip.getIVTag;
+import static com.whizenx.amath.Game.Assets.Chip.saveIVTag;
+import static com.whizenx.amath.Game.Assets.Interface.setChip;
+import static com.whizenx.amath.Game.Assets.Interface.setChip_onTouch;
+import static com.whizenx.amath.Game.Assets.Interface.setStatus;
+import static com.whizenx.amath.Game.Assets.Interface.setStatus_onTouch;
+import static com.whizenx.amath.Game.Assets.Table.getStatus;
 
 import android.app.Activity;
 import android.os.Build;
@@ -42,10 +42,9 @@ public class Motion {
     public Motion(Activity activity, HashMap<String, Integer> idMap) {
         this.activity = activity;
         this.idMap = idMap;
-        initMotionObj();
     }
 
-    private void initMotionObj() {
+    void init() {
         View view = activity.findViewById(R.id.table);
         View view_select = activity.findViewById(R.id.select);
 
@@ -153,7 +152,8 @@ public class Motion {
     }
 
     private void submitOnTouch(Button btn) {
+        Validate validate = new Validate(activity, idMap);
 //        btn.setOnClickListener(view -> onButtonShowPopupWindowClick(activity, btn));
-        btn.setOnClickListener(view -> new Validate(activity, idMap));
+        btn.setOnClickListener(view -> validate.start());
     }
 }

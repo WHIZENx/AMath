@@ -1,6 +1,6 @@
-package com.whizenx.amath.Game.UI;
+package com.whizenx.amath.Game.Assets;
 
-import static com.whizenx.amath.Game.UI.Chip.saveIVTag;
+import static com.whizenx.amath.Game.Assets.Chip.saveIVTag;
 import static com.whizenx.amath.Game.isNumeric.isNumeric;
 
 import android.annotation.SuppressLint;
