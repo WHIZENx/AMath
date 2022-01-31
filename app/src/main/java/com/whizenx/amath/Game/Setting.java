@@ -2,8 +2,8 @@ package com.whizenx.amath.Game;
 
 public class Setting {
 
-    static int num = 15;
-    static int selectNum = 8;
+    private static int num = 15;
+    private static int selectNum = 8;
 
     public static int getNum() {
         return num;

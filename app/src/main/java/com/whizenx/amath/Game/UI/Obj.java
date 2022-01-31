@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.HashMap;
 
-public class Object {
+public class Obj {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void createBgTableObj(ConstraintLayout obj, int width, int height, Drawable drawable, int paddingPx, int paddingStrokePx) {

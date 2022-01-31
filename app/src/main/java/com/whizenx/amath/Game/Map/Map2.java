@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Map2 {
 
-    public Map2(HashMap<Integer, List<String>> table_map) {
+    public Map2(HashMap<Integer, List<String>> table_map, HashMap<Integer, String> select_chip) {
         table_map.put(0, Arrays.asList("2", "=", "2", "=", "2", "=", "2", "=", "2", "-", "2", "+", "2", "=", "2"));
         table_map.put(1, Arrays.asList("=", null, "+", null, null, null, "*", null, "*", null, null, null, null, null, "="));
         table_map.put(2, Arrays.asList("4", null, "2", null, null, null, "2", null, "12", null, "20", "=", "10", "*", "2"));
@@ -22,6 +22,15 @@ public class Map2 {
         table_map.put(12, Arrays.asList("2", null, null, null, "2", "=", "2", "/", "1", null, null, null, "1", null, null));
         table_map.put(13, Arrays.asList("-", null, null, null, null, null, "/", null, null, null, null, null, null, null, null));
         table_map.put(14, Arrays.asList("0", null, null, null, null, null, "2", null, null, null, null, null, null, null, null));
+
+        select_chip.put(0, "=");
+        select_chip.put(1, "=");
+        select_chip.put(2, "=");
+        select_chip.put(3, "=");
+        select_chip.put(4, "=");
+        select_chip.put(5, "=");
+        select_chip.put(6, "=");
+        select_chip.put(7, "=");
     }
 
 }

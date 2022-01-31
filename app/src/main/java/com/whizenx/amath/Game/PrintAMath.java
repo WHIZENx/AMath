@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PrintAMath {
@@ -16,7 +17,7 @@ public class PrintAMath {
         list_result.add(operation);
         list_result.addAll(list_2);
         String result = TextUtils.join("",list_result);
-        System.out.println(text + ": " + list_1 + "['" + operation + "']" + list_2 + " -> " +result);
+        System.out.println(text + ": " + list_1 + "[" + operation + "]" + list_2 + " -> " +result);
 
         List<String> result_split = Arrays.asList(result.split("="));
 
@@ -32,5 +33,12 @@ public class PrintAMath {
             System.out.println("Equation: " + result_split + " -> " + result_eq + " -> " + bool);
         }
 
+    }
+
+    public static void printResult(int count, int t, List<String> list_op, List<Boolean> list_eq) {
+        System.out.println("All chip: " + count);
+        System.out.println("Count chip travel: " + t + " Count chip operation: " + list_op.size());
+        System.out.println("All equation: " + count + " All equation operate: " + list_eq.size());
+        System.out.println("Correct: " + Collections.frequency(list_eq, true) + " Not Correct: " + Collections.frequency(list_eq, false) + " Error: " + Collections.frequency(list_eq, null));
     }
 }

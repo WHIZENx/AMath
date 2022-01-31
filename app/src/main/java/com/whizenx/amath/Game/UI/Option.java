@@ -2,13 +2,13 @@ package com.whizenx.amath.Game.UI;
 
 public class Option {
 
-    static int paddingDp = 15;
-    static int paddingPieceDp = 3;
+    private static int paddingDp = 15;
+    private static int paddingPieceDp = 3;
 
-    static int paddingStrokeDp = 3;
+    private static int paddingStrokeDp = 3;
 
-    static int paddingSelectDp = 10;
-    static int paddingSelectPieceDp = 5;
+    private static int paddingSelectDp = 10;
+    private static int paddingSelectPieceDp = 5;
 
     public static int getPaddingDp() {
         return paddingDp;

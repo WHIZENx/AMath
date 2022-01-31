@@ -11,7 +11,7 @@ public class RandomId {
 
     public static int getRandomId(Activity activity, HashMap<String, Integer> idMap, String name) {
 
-        boolean notInGeneralResourses = false;
+        boolean notInGeneralResources;
         boolean foundInIdMap = false;
 
         String packageName = activity.getPackageName();
@@ -30,11 +30,11 @@ public class RandomId {
                 name = null;
             }
 
-            notInGeneralResourses = name == null || !name.startsWith(packageName);
+            notInGeneralResources = name == null || !name.startsWith(packageName);
 
             // Step 3 - Check in id HashMap
-            if (notInGeneralResourses) {
-                List<Integer> valueList = new ArrayList<Integer>(idMap.values());
+            if (notInGeneralResources) {
+                List<Integer> valueList = new ArrayList<>(idMap.values());
 
                 foundInIdMap = false;
                 for (Integer value : valueList) {

@@ -1,14 +1,13 @@
 package com.whizenx.amath.Game.Engine;
 
-import static com.whizenx.amath.Game.Engine.Validate.start;
-import static com.whizenx.amath.Game.Engine.initObj.paddingPiecePx;
-import static com.whizenx.amath.Game.Engine.initObj.paddingSelectPiecePx;
-import static com.whizenx.amath.Game.Engine.initObj.paddingSelectPx;
-import static com.whizenx.amath.Game.Engine.initObj.paddingStrokePx;
-import static com.whizenx.amath.Game.Engine.initObj.piece;
-import static com.whizenx.amath.Game.Engine.initObj.piece_select;
-import static com.whizenx.amath.Game.Popup.onButtonShowPopupWindowClick;
+import static com.whizenx.amath.Game.Engine.Resources.paddingPiecePx;
+import static com.whizenx.amath.Game.Engine.Resources.paddingSelectPiecePx;
+import static com.whizenx.amath.Game.Engine.Resources.paddingSelectPx;
+import static com.whizenx.amath.Game.Engine.Resources.paddingStrokePx;
+import static com.whizenx.amath.Game.Engine.Resources.piece;
+import static com.whizenx.amath.Game.Engine.Resources.piece_select;
 import static com.whizenx.amath.Game.Setting.getSelectNum;
+import static com.whizenx.amath.Game.UI.Chip.getIV;
 import static com.whizenx.amath.Game.UI.Chip.getIVTag;
 import static com.whizenx.amath.Game.UI.Chip.saveIVTag;
 import static com.whizenx.amath.Game.UI.Interface.setChip;
@@ -30,25 +29,33 @@ import com.whizenx.amath.R;
 
 import java.util.HashMap;
 
-public class initMotion {
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+public class Motion {
 
-    static int save_select = -1;
-    static String save_state = "";
-    static boolean selected = false;
+    private int save_select = -1;
+    private HashMap<String, Integer> save_state = new HashMap<>();
+    private boolean selected = false;
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
-    public static void initMotionObj(Activity activity, HashMap<String, Integer> idMap) {
+    private final Activity activity;
+    private final HashMap<String, Integer> idMap;
+
+    public Motion(Activity activity, HashMap<String, Integer> idMap) {
+        this.activity = activity;
+        this.idMap = idMap;
+        initMotionObj();
+    }
+
+    private void initMotionObj() {
         View view = activity.findViewById(R.id.table);
         View view_select = activity.findViewById(R.id.select);
 
-        tableOnTouch(activity, view, idMap);
-        selectOnTouch(activity, view_select, idMap);
+        tableOnTouch(view);
+        selectOnTouch(view_select);
 
-        submitOnTouch(activity, activity.findViewById(idMap.get("submit")), idMap);
+        submitOnTouch(activity.findViewById(idMap.get("submit")));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
-    private static void tableOnTouch(Activity activity, View obj, HashMap<String, Integer> idMap) {
+    private void tableOnTouch(View obj) {
         obj.setOnTouchListener((view,motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 float x = motionEvent.getX();
@@ -57,37 +64,40 @@ public class initMotion {
                 int x_table = (int) (x - paddingStrokePx) / (piece + paddingPiecePx);
                 int y_table = (int) (y - paddingStrokePx) / (piece + paddingPiecePx);
 
-                ImageView iv = activity.findViewById(idMap.get("x" + x_table + "y" + y_table));
+                ImageView iv = getIV(activity, idMap, "x" + x_table + "y" + y_table);
 
                 if ((Boolean) getIVTag(iv, "locked")) {
                     return false;
                 }
 
-                if (getIVTag(iv, "index") != null) {
-                    ImageView iv_select = activity.findViewById(idMap.get("select" + getIVTag(iv, "index")));
+                if (getIVTag(iv, "value") != null) {
+                    if (getIVTag(iv, "index") != null) {
+                        ImageView iv_select = getIV(activity, idMap, "select" + getIVTag(iv, "index"));
+                        saveIVTag(iv_select, "used", false);
+                        iv_select.setAlpha(1F);
+                    }
                     setStatus(activity, iv, (String) getIVTag(iv, "type"));
-                    saveIVTag(iv_select, "used", false);
                     saveIVTag(iv, "value", null);
                     saveIVTag(iv, "index", null);
-                    iv_select.setAlpha(1F);
                     return true;
                 }
 
-                if (save_state.equals("")) {
-                    save_state = x_table + "_" + y_table;
+                if (save_state.isEmpty()) {
+                    save_state.put("x", x_table);
+                    save_state.put("y", y_table);
                     setStatus_onTouch(activity, iv, getStatus(y_table, x_table));
                     selected = true;
                     if (save_select != -1) {
-                        ImageView iv_select = activity.findViewById(idMap.get("select" + save_select));
+                        ImageView iv_select = getIV(activity, idMap, "select" + save_select);
                         setChip(activity, iv_select, (String) getIVTag(iv_select, "value"));
                         save_select = -1;
                     }
                 } else {
-                    int xIndex = Integer.parseInt(save_state.split("_")[0]);
-                    int yIndex = Integer.parseInt(save_state.split("_")[1]);
-                    ImageView old_iv = activity.findViewById(idMap.get("x" + xIndex + "y" + yIndex));
+                    int xIndex = save_state.get("x");
+                    int yIndex = save_state.get("y");
+                    ImageView old_iv = getIV(activity, idMap, "x" + xIndex + "y" + yIndex);
                     setStatus(activity, old_iv, getStatus(yIndex, xIndex));
-                    save_state = "";
+                    save_state = new HashMap<>();
                     selected = false;
                 }
             } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -97,8 +107,7 @@ public class initMotion {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private static void selectOnTouch(Activity activity, View obj, HashMap<String, Integer> idMap) {
+    private void selectOnTouch(View obj) {
         obj.setOnTouchListener((view, motionEvent) -> {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                 float x = motionEvent.getX();
@@ -109,7 +118,7 @@ public class initMotion {
                     return false;
                 }
 
-                ImageView iv = activity.findViewById(idMap.get("select" + x_select)); // ปัจจุบัน
+                ImageView iv = getIV(activity, idMap, "select" + x_select); // ปัจจุบัน
                 if ((Boolean) getIVTag(iv, "used")) {
                     return false;
                 }
@@ -120,18 +129,18 @@ public class initMotion {
                         setChip_onTouch(activity, iv, (String) getIVTag(iv, "value"));
                     }
                 } else {
-                    ImageView iv_select = activity.findViewById(idMap.get("select" + save_select)); // ก่อน
+                    ImageView iv_select =  getIV(activity, idMap, "select" + save_select); // ก่อน
                     String value = (String) getIVTag(iv, "value");
                     setChip(activity, iv, (String) getIVTag(iv_select, "value")); // แก้ตัวปัจจุบัน
                     setChip(activity, iv_select, value); // แก้ตัวก่อน
                     save_select = -1;
                 }
-                if (selected && !save_state.equals("")) {
-                    ImageView old_iv = activity.findViewById(idMap.get("x" + save_state.split("_")[0] + "y" + save_state.split("_")[1]));
+                if (selected && !save_state.isEmpty()) {
+                    ImageView old_iv = getIV(activity, idMap, "x" + save_state.get("x") + "y" + save_state.get("y"));
                     setChip(activity, old_iv, (String) getIVTag(iv, "value"));
                     saveIVTag(iv, "used", true);
                     saveIVTag(old_iv, "index", save_select);
-                    save_state = "";
+                    save_state = new HashMap<>();
                     iv.setAlpha(0.5F);
                     selected = false;
                     save_select = -1;
@@ -143,8 +152,8 @@ public class initMotion {
         });
     }
 
-    private static void submitOnTouch(Activity activity, Button btn, HashMap<String, Integer> idMap) {
+    private void submitOnTouch(Button btn) {
 //        btn.setOnClickListener(view -> onButtonShowPopupWindowClick(activity, btn));
-        btn.setOnClickListener(view -> start(activity, idMap));
+        btn.setOnClickListener(view -> new Validate(activity, idMap));
     }
 }

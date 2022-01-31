@@ -1,45 +1,45 @@
 package com.whizenx.amath.Game.Engine;
 
-import static com.whizenx.amath.Game.Engine.initMotion.initMotionObj;
-import static com.whizenx.amath.Game.Engine.initObj.initAllObj;
-
 import android.app.Activity;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+
+import com.whizenx.amath.Game.Map.Map1;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class Game {
 
-    static HashMap<String, Integer> idMap = new HashMap<>();
+    private final Activity activity;
+    private final int map;
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
-    public static void start(Activity activity, int map) {
+    public Game(Activity activity, int map) {
+        this.activity = activity;
+        this.map = map;
+        start();
+    }
 
+    private void start() {
+
+        HashMap<String, Integer> idMap = new HashMap<>();
         HashMap<Integer, List<String>> table_map = new HashMap<>();
+        HashMap<Integer, String> select_chip = new HashMap<>();
 
         try {
             Class<?> cls = Class.forName("com.whizenx.amath.Game.Map.Map"+map);
-            Constructor<?> constructor = cls.getConstructor(HashMap.class);
+            Constructor<?> constructor = cls.getConstructor(HashMap.class, HashMap.class);
 
-            constructor.newInstance(table_map);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
+            constructor.newInstance(table_map, select_chip);
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+            new Map1(table_map, select_chip);
         }
 
-        initAllObj(activity, idMap, table_map);
-        initMotionObj(activity, idMap);
+        new Resources(activity, idMap, table_map, select_chip);
+        new Motion(activity, idMap);
     }
 }

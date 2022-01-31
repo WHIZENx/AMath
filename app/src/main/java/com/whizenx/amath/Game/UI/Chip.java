@@ -23,11 +23,15 @@ public class Chip {
         iv.setTag(result);
     }
 
-    public static java.lang.Object getIVTag(ImageView iv, String key) {
+    public static Object getIVTag(ImageView iv, String key) {
         return ((HashMap<String, ?>) iv.getTag()).get(key);
     }
 
-    public static String getValueIV(Activity activity,  HashMap<String, Integer> idMap, int x, int y) {
+    public static ImageView getIV(Activity activity, HashMap<String, Integer> idMap, String name) {
+        return activity.findViewById(idMap.get(name));
+    }
+
+    public static String getValueIV(Activity activity, HashMap<String, Integer> idMap, int x, int y) {
         if (x < 0 || x >= getNum() || y < 0 || y >= getNum()) {
             return null;
         }
