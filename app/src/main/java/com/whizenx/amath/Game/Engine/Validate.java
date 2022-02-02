@@ -1,7 +1,8 @@
 package com.whizenx.amath.Game.Engine;
 
-import static com.whizenx.amath.Game.PrintAMath.printLog;
-import static com.whizenx.amath.Game.PrintAMath.printResult;
+import static com.whizenx.amath.Game.Logger.printLog;
+import static com.whizenx.amath.Game.Logger.printResult;
+import static com.whizenx.amath.Game.Logger.showMessage;
 import static com.whizenx.amath.Game.Setting.getNum;
 import static com.whizenx.amath.Game.Assets.Chip.getValueIV;
 import static com.whizenx.amath.Game.isNumeric.isNumeric;
@@ -85,20 +86,25 @@ public class Validate {
                 }
                 printResult(count, t, list_op, list_eq);
                 if (list_eq.contains(null) || list_op.size() != t){
+                    showMessage(activity, "Found error some equation", 1);
                     System.out.println("> Error");
                 }
                 else if (!list_eq.contains(false)) {
+                    showMessage(activity, "Pass", 1);
                     System.out.println("> Pass");
                 }
                 else {
+                    showMessage(activity, "NOT Pass", 1);
                     System.out.println("> NOT Pass");
                 }
             } else {
+                showMessage(activity, "Pattern equation in AMath not correct", 1);
                 System.out.println("All chip: " + count);
                 System.out.println("Count chip travel: " + t);
                 System.out.println("> ERROR");
             }
         } else {
+            showMessage(activity, "Can't find equation", 1);
             System.out.println("Can't find equation");
             System.out.println("> ERROR");
         }
@@ -221,16 +227,15 @@ public class Validate {
 
         int count = 0;
         for (int i = 0; i < text.length(); i++) {
-            if (!isNumeric(String.valueOf(text.charAt(i)))){
+            if (!isNumeric(String.valueOf(text.charAt(i)))) {
                 count = 0;
-            }
-            else{
+            } else {
                 if (count >  2){
                     return null;
                 }
                 count += 1;
             }
-            if (i < text.length()-1 && !isNumeric(String.valueOf(text.charAt(i))) && !isNumeric(String.valueOf(text.charAt(i+1)))){
+            if (i < text.length()-1 && !isNumeric(String.valueOf(text.charAt(i))) && !isNumeric(String.valueOf(text.charAt(i+1)))) {
                 return null;
             }
 
@@ -253,18 +258,14 @@ public class Validate {
         List<String> list_result = new ArrayList<>(list_1);
         list_result.add(operation);
         list_result.addAll(list_2);
-        if (list_result.get(0).equals("=") || list_result.get(list_result.size()-1).equals("=")) {
+        if (!list_result.contains("=") || list_result.get(0).equals("=") || list_result.get(list_result.size()-1).equals("=")) {
             return null;
         }
 
         String result = TextUtils.join("",list_result);
-        if (!result.contains("=")){
-            return null;
-        }
 
-        String[] result_split = result.split("=");
         List<Double> result_eq = new ArrayList<>();
-        for (String item : result_split) {
+        for (String item : result.split("=")) {
             result_eq.add(calculate(item));
         }
         if (result_eq.contains(null)){

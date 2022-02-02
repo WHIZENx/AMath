@@ -16,14 +16,12 @@ import java.util.List;
 public class Game {
 
     private final Activity activity;
-    private final int map;
 
-    public Game(Activity activity, int map) {
+    public Game(Activity activity) {
         this.activity = activity;
-        this.map = map;
     }
 
-    public void start() {
+    public void start(int map) {
 
         HashMap<String, Integer> idMap = new HashMap<>();
         HashMap<Integer, List<String>> table_map = new HashMap<>();
